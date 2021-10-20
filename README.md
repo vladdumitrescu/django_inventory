@@ -25,6 +25,8 @@ The first command creates the migrations from the models, while the second appli
 python manage.py createsuperuser
 ```
 
+!Note: Images are uploaded into the django_inventory/drone_management/static directory.
+
 
 ### Start the server:
 
