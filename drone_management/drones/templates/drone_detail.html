@@ -1,0 +1,52 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Title</title>-->
+<!--</head>-->
+<!--<body>-->
+
+<!--</body>-->
+<!--</html>-->
+
+{%extends 'base.html' %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+<!--            <a href="{% url 'show_drones' %}" class="btn btn-primary mt-2">Back</a>-->
+            <div class="card mb-3" style="max-width: 540px;">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        <img src="{{ drone_det.image.url }}" class="img-fluid rounded-start" alt="...">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">Name: {{ drone_det.name }}</li>
+                                <li class="list-group-item">Description: {{ drone_det.description }}</li>
+                                <li class="list-group-item">Brand: {{ drone_det.brand }}</li>
+                                <li class="list-group-item">Serial number: {{ drone_det.serial_number }}</li>
+
+                                <li class="list-group-item">Camera Model: {{ drone_det.camera_model }}</li>
+                                <li class="list-group-item">Camera Megapixels: {{drone_det.camera_megapixel }}</li>
+                                <li class="list-group-item">Camera brand: {{ drone_det.camera_brand }}</li>
+                                <li class="list-group-item">Published: {{ drone_det.is_published }}</li>
+                                <li class="list-group-item">Price: {{ drone_det.price }}</li>
+                            </ul>
+                            <p class="card-text"><small class="text-muted">Created at: {{ drone_det.created_at }} </small></p>
+                            {% if user.is_authenticated %}
+                                <a href="{% url 'delete_drone' drone_det.id %}" class="btn btn-danger m-1"> Delete </a>
+                                <a href="{% url 'update_drone' drone_det.id %}" class="btn btn-primary m-1"> Update </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

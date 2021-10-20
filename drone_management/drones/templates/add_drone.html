@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+<h2 class="row justify-content-center">
+    Add Drone
+</h2>
+
+<div class="container m-5">
+    <form action="" method="post" enctype="multipart/form-data">
+
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" name="Submit" class="btn btn-success", value="Add drone">
+
+    </form>
+</div>
+
+
+{% endblock %}

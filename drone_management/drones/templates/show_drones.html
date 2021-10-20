@@ -1,0 +1,117 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Title</title>-->
+<!--</head>-->
+<!--<body>-->
+
+<!--</body>-->
+<!--</html>-->
+
+{%extends 'base.html' %}
+
+
+{% block content %}
+
+
+<div class="container">
+    <div class="row justify-content-center m-4">
+
+        {% if drones %}
+
+        {% for drone in drones %}
+
+        <div class="col-md-4">
+            <div class="card m-3 p-2"
+                 style="width: 18rem; height: 33rem; box-shadow: 4px 4px #c291fa; border-radius: 25px 15px;">
+                <img src="{{ drone.image.url }}" style="height: 300px; width: 200px;" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h4 class="card-title mt-1">{{ drone.name }}</h4>
+                    <h3 style="color: rgb(16, 52, 107)" class="card-subtitle mt-1">{{ drone.price }}$</h3>
+                    <hr>
+                    <p class="cart-text mt-2">{{ drone.created_at }}</p>
+                    <a href="{% url 'drone' drone.pk  %}" style="background-color: #5707b3;"
+                       class="btn btn-primary m-1">Detail</a>
+                </div>
+            </div>
+        </div>
+
+        {% endfor %}
+
+        {% else %}
+        <p>Did not find any drones to show.</p>
+        {% endif %}
+
+         <div class="col-md-4">
+              <h2>Camera brand</h2>
+              <br>
+              <hr>
+
+                  <a class="list-group-item" href="{% url 'show_drones' %}">All</a>
+
+                  {% for camera_brand in camera_brands %}
+
+                    <li class="list-group-item">
+                        <a class="btn btn-primary" href="{% url 'show_drones' %}?camera_brand={{ camera_brand.name }}">{{ camera_brand.name }}</a>
+                    </li>
+
+                  {% endfor %}
+
+            </div>
+
+
+    </div>
+
+
+    <div class="row m-5">
+        <div class="col-md-12 m-2">
+
+            {% if drones.has_other_pages %}
+            <ul class="pagination">
+                {% if drones.has_previous %}
+                <li class="page-item">
+                    <a href="?page={{ drones.previous_page_number }}" class="page-link">&laquo;
+                    </a>
+                <li>
+                    {% else %}
+                <li class="page-item disabled">
+                    <a class="page-link" href="?page=1">&laquo;</a>
+                </li>
+                {% endif %}
+
+                {% for i in drones.paginator.page_range %}
+                {% if drones.number == i %}
+                <li class="page-item active">
+                    <a class="page-link">{{ i }}</a>
+                </li>
+                {% else %}
+                <li class="page-item">
+                    <a href="?page={{ i }}" class="page-link">{{ i }}</a>
+                </li>
+                {% endif %}
+                {% endfor %}
+
+
+                {% if drones.has_next %}
+                <li class="page-item">
+                    <a href="?page={{ drones.next_page_number }}" class="page-link">&raquo;
+                    </a>
+                <li>
+                    {% else %}
+                <li class="page-item disabled">
+                    <a class="page-link" href="?page={{ drones.paginator.num_pages }}">&raquo;</a>
+                </li>
+                {% endif %}
+
+            </ul>
+            {% endif %}
+
+        </div>
+    </div>
+
+
+</div>
+
+
+{% endblock %}
